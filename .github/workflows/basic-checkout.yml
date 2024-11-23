@@ -27,7 +27,6 @@ jobs:
           echo "Python version: $(python --version || echo 'Python not installed')"
           echo "Git version: $(git --version)"
 
-      # New commands
       - name: Show current date and time
         run: date
 
@@ -37,14 +36,12 @@ jobs:
       - name: Show memory usage
         run: free -h
 
-      # Add environment variables
       env:
         CUSTOM_MESSAGE: "Hello from GitHub Actions!"
       
       - name: Show custom message
         run: echo "$CUSTOM_MESSAGE"
 
-      # Conditional execution
       - name: Conditional step
         if: github.event_name == 'push'
         run: echo "This was triggered by a push event"
