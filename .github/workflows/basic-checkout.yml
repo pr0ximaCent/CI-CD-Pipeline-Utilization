@@ -1,34 +1,50 @@
 name: Basic Checkout Lab
 
-# Trigger on push to main branch
 on:
   push:
     branches:
       - main
 
-# Define jobs and their steps
 jobs:
   basic-checkout:
     runs-on: ubuntu-latest
     steps:
-      # Step 1: Checkout the repository
       - name: Checkout repository
         uses: actions/checkout@v4
-      
-      # Step 2: List repository contents
+
       - name: List files
         run: ls -la
-      
-      # Step 3: Display system information
+
       - name: Show system info
         run: |
           echo "Repository: $GITHUB_REPOSITORY"
           echo "Operating System: $(uname -a)"
           echo "Current Directory: $(pwd)"
-      
-      # Step 4: Check software versions
+
       - name: Check versions
         run: |
-          echo "Node version: $(node --version)"
-          echo "Python version: $(python --version)"
+          echo "Node version: $(node --version || echo 'Node not installed')"
+          echo "Python version: $(python --version || echo 'Python not installed')"
           echo "Git version: $(git --version)"
+
+      # New commands
+      - name: Show current date and time
+        run: date
+
+      - name: Show available disk space
+        run: df -h
+
+      - name: Show memory usage
+        run: free -h
+
+      # Add environment variables
+      env:
+        CUSTOM_MESSAGE: "Hello from GitHub Actions!"
+      
+      - name: Show custom message
+        run: echo "$CUSTOM_MESSAGE"
+
+      # Conditional execution
+      - name: Conditional step
+        if: github.event_name == 'push'
+        run: echo "This was triggered by a push event"
