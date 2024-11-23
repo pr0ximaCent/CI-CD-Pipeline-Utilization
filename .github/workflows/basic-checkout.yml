@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+env:
+  CUSTOM_MESSAGE: "Hello from GitHub Actions!"
 
 jobs:
   basic-checkout:
@@ -35,9 +37,6 @@ jobs:
 
       - name: Show memory usage
         run: free -h
-
-      env:
-        CUSTOM_MESSAGE: "Hello from GitHub Actions!"
       
       - name: Show custom message
         run: echo "$CUSTOM_MESSAGE"
